@@ -1,13 +1,12 @@
 import torch
 from datasets import load_dataset
 from IPython.display import Audio
-from transformers import (SpeechT5ForTextToSpeech, SpeechT5HifiGan,
-                          SpeechT5Processor)
+from transformers import SpeechT5ForTextToSpeech, SpeechT5HifiGan, SpeechT5Processor
 
 
 class Infer:
     def __init__(self, model_name="microsoft/speecht5_tts"):
-        """Responsible for making inference"""
+        """Responsible for making inference on a given text adn speaker id"""
         # Load models
         self.processor = SpeechT5Processor.from_pretrained(model_name)
         self.model = SpeechT5ForTextToSpeech.from_pretrained(model_name)
