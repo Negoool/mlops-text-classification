@@ -5,7 +5,7 @@ from transformers import SpeechT5ForTextToSpeech, SpeechT5HifiGan, SpeechT5Proce
 
 
 class Infer:
-    def __init__(self, model_name="microsoft/speecht5_tts"):
+    def __init__(self, model_name: str = "microsoft/speecht5_tts") -> None:
         """Responsible for making inference on a given text adn speaker id"""
         # Load models
         self.processor = SpeechT5Processor.from_pretrained(model_name)
@@ -19,7 +19,7 @@ class Infer:
             "Matthijs/cmu-arctic-xvectors", split="validation"
         )
 
-    def tts(self, text, speaker_id):
+    def tts(self, text: str, speaker_id: int) -> torch.Tensor:
         inputs = self.processor(text=text, return_tensors="pt")
         speaker_embedding = torch.tensor(
             self.embedding[speaker_id]["xvector"]
@@ -32,6 +32,6 @@ class Infer:
     def listen_to_speach(self, waveform):
         return Audio(waveform, rate=16000)
 
-    def run(self, text, speacker_id=16):
+    def run(self, text: str, speacker_id: int = 16) -> None:
         speech = self.tts(text, speacker_id)
         self.listen_to_speach(speech)
