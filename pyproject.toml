@@ -30,7 +30,7 @@ test = [
 
 # black formatting
 [tool.black]
-line-length = 150
+line-length = 119
 include = '\.pyi?$'
 exclude = '''
 /(
