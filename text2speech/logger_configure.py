@@ -1,17 +1,17 @@
 import logging
-
-from rich.logging import RichHandler
+from pathlib import Path
 
 
 def setup_root():
-    LOGS_DIR = "../logs"
+    LOGS_DIR = Path("logs")
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
     # Get root logger
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
     # Create handlers
-    console_handler = RichHandler(markup=True)
-    console_handler.setLevel(logging.DEBUG)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
     info_handler = logging.handlers.RotatingFileHandler(
         filename=Path(LOGS_DIR, "info.log"),
         maxBytes=10485760,  # 1 MB
