@@ -5,11 +5,7 @@ import soundfile as sf
 import torch
 from datasets import load_dataset
 from IPython.display import Audio
-from transformers import (
-    SpeechT5ForTextToSpeech,
-    SpeechT5HifiGan,
-    SpeechT5Processor,
-)
+from transformers import SpeechT5ForTextToSpeech, SpeechT5HifiGan, SpeechT5Processor
 
 from text2speech.logger_configure import get_logger
 
@@ -33,6 +29,12 @@ class Infer:
         self.embedding = load_dataset("Matthijs/cmu-arctic-xvectors", split="validation")
 
         self.saved_loc = Path(saved_loc)
+        self.metadata = {
+            "model_name": model_name,
+            "preporcessor": model_name,
+            "vocoder": "microsoft/speecht5_hifigan",
+            "voice_embeddings": "Matthijs/cmu-arctic-xvectors",
+        }
 
     def tts(self, text: str, speaker_id: int) -> torch.Tensor:
         inputs = self.processor(text=text, return_tensors="pt")
@@ -44,14 +46,19 @@ class Infer:
         return Audio(waveform, rate=16000)
 
     def save_audio(self, waveform):
-        sf.write(self.saved_loc / "speech.wav", waveform.numpy(), samplerate=16000)
+        save_loc = self.saved_loc / "speech.wav"
+        sf.write(save_loc, waveform.numpy(), samplerate=16000)
+        return save_loc
 
-    def run(self, text: str, speacker_id: int = 7000) -> None:
+    def run(self, text: str, speacker_id: int = 7000) -> Path:
         st = time.time()
         speech = self.tts(text, speacker_id)
         infer_time = time.time() - st
-        logger.info({"infer_time": infer_time, "text_length": len(text), "speech_length": round(speech.shape[0] / 16000, 2)})
-        self.save_audio(speech)
+        logger.info(
+            {"infer_time": infer_time, "text_length": len(text), "speech_length": round(speech.shape[0] / 16000, 2)}
+        )
+        save_loc = self.save_audio(speech)
+        return save_loc
 
 
 if __name__ == "__main__":

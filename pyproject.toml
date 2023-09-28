@@ -11,7 +11,9 @@ dependencies = [
   "transformers==4.31.0",
   "datasets==2.14.4",
   "torch==2.0.1",
-  "SentencePiece"
+  "SentencePiece==0.1.99",
+  "fastapi==0.103.1",
+  "uvicorn==0.23.2",
 ]
 
 [project.optional-dependencies] # Optional
@@ -50,7 +52,7 @@ exclude = '''
 # iSort
 [tool.isort]
 profile = "black"
-line_length = 79
+line_length = 119
 multi_line_output = 3
 include_trailing_comma = true
 virtual_env = "venv"
