@@ -59,7 +59,7 @@ def _args(request: Request, filter: str = None) -> dict:
 @app.post("/predict", tags=["Prediction"])
 async def _predict(request: Request, payload: PredictPayload):
     """Creat Audio out of the given text"""
-    speech = model.tts(payload.text, speaker_id=7000)
+    speech = model.execute(payload.text, speaker_id=7000)
     list_speech = speech.cpu().detach().numpy().tolist()
 
     response = {"message": HTTPStatus.OK.phrase, "status-code": HTTPStatus.OK, "data": {"speech": list_speech}}
