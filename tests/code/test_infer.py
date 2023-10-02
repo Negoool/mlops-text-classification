@@ -5,9 +5,14 @@ from text2speech.infer import Infer
 
 
 @pytest.fixture
-def load_model(scopre="module"):
+def load_model(scope="module"):
     inferencer = Infer()
     return inferencer
+
+
+def test_load(load_model):
+    assert load_model.model
+    assert "model_name" in load_model.metadata
 
 
 def test_tokenize_text(load_model):
