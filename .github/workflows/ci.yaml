@@ -1,0 +1,43 @@
+name: Continues Integration 
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+    paths-ignore:
+      - 'docs/**'
+
+jobs:
+  CI:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        python-version: [3.10.11]
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up the enviroment
+      - name: Set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+
+      # install requirements
+      - name: Install dependencies
+        run: python -m pip install .
+
+
+      # Run the test
+      - name: Run tests
+        uses: pytest tests/code/test_utils.py
+
+
+      # Print or save the results
+
+
