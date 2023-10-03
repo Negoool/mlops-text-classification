@@ -1,11 +1,11 @@
-[project]
-name = "text2speech"
-version = "0.0.1" 
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+
+[project]
+name = "text2speech"
+version = "0.0.1" 
 
 dependencies = [
   "transformers==4.31.0",
