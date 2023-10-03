@@ -35,7 +35,7 @@ jobs:
 
       # Run the test
       - name: Run tests
-        uses: pytest tests/code/test_utils.py
+        run: pytest tests/code/test_utils.py
 
 
       # Print or save the results
