@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY  . .
 
-# RUN python -m pip install .
+RUN python -m pip install .
 
-CMD ["uvicorn", "deploy.api:app", "--host",  "0.0.0.0"]
+CMD ["uvicorn", "deploy.api:app", "--host",  "0.0.0.0", "--port", "8080"]
