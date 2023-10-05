@@ -4,7 +4,6 @@ from pathlib import Path
 import soundfile as sf
 import torch
 from datasets import load_dataset
-from IPython.display import Audio
 from transformers import SpeechT5ForTextToSpeech, SpeechT5HifiGan, SpeechT5Processor
 
 from text2speech.logger_configure import get_logger
