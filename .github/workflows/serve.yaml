@@ -50,8 +50,8 @@ on:
 
 env:
   PROJECT_ID: mlops-mah # TODO: update Google Cloud project id
-  GAR_LOCATION: deploy-registery	# TODO: update Artifact Registry location
-  SERVICE: deploy-gcp # TODO: update Cloud Run service name
+  GAR_LOCATION: us-west4	# TODO: update Artifact Registry location
+  SERVICE: deploy-registery # TODO: update Cloud Run service name
   REGION: us-west4-b # TODO: update Cloud Run service region
 
 jobs:
